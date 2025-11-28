@@ -1,0 +1,13 @@
+bottle
+cup
+fork
+knife
+spoon
+bowl
+banana
+apple
+orange
+sandwich
+cake
+book
+cell phone
