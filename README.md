@@ -11,8 +11,8 @@
 ## 2. 环境配置与运行 (Setup & Execution)
 
 ### 2.1 硬件连接
-1.  **水果识别摄像头**: 连接到 Jetson Nano 主板的 **CSI-1** 接口。
-2.  **手势识别摄像头**: 连接到 **CSI-0** 接口。
+1.  **水果识别摄像头**: 连接到 Jetson Nano 主板上（CSI-1）。
+2.  **手势识别摄像头**: 连接到 Jetson Nano 主板上（CSI-0）
 3.  **显示与音频**: 通过 **HDMI** 连接一个带有扬声器的显示器。
     *   ⚠️ **重要**: 连接后，请进入 Jetson Nano 的桌面 `Sound` 设置，确保 **Output Device** (输出设备) 被设置为 **HDMI / DisplayPort**。
 
@@ -36,6 +36,7 @@ cd /home/nano/smart_checkout_system/
 export DISPLAY=:0
 3. 启动主程序
 python3 main.py
+（如果报模型相关的错误，可能是因为TensorRT优化后的模型在不同设备之间不通用，新设备需要重新优化，现在的代码中已经有一个engine文件了，而这个文件是基于我当时的板子优化来的，可以把现在的engine删除，然后重新运行python3 main.py，这次运行TensorRT会对ONNX模型重新优化，会花费较长的时间，最后会生成新的engine文件，这个engine文件是针对当前板子生成的，下次运行就会非常快了）
 2.4 操作流程指南
 🍎 添加商品: 将一个水果（或显示水果图片的平板/手机）在主摄像头前展示一下（即从画面外移入）。系统识别后会自动添加，并有语音提示。要增加同一水果的数量，只需将其移出画面再重新移入即可。
 🖐️ 撤销操作: 在手势摄像头前做出 张开手掌 的手势，系统会撤销上一次的添加操作。
@@ -58,7 +59,7 @@ CPU负载优化: 手势识别采用帧间隔采样技术（每3帧处理1次）�
 4. 技术架构与实现 (Tech Stack & Architecture)
 4.1 硬件平台
 核心: NVIDIA Jetson Nano Developer Kit
-视觉输入: 2 x CSI 摄像头 (推荐 Raspberry Pi Camera Module V2)
+视觉输入: 2 x CSI 摄像头 
 4.2 软件技术栈
 操作系统: Jetson-based Linux (Ubuntu 18.04)
 编程语言: Python 3.6
@@ -88,6 +89,6 @@ eSpeak: Linux 系统下的底层语音合成引擎。
 ├── payment_qr.png            # 💳 结账时显示的二维码图片。
 └── README.md                 # 📄 本项目说明文件。
 
-作者: 段奕嘉 (Eika)
+作者: 段奕嘉 
 项目日期: 2025年11月
 联系方式: yijiaduan116@gmail.com
